@@ -4,15 +4,13 @@ public class Process {
 	private int pid;
 	private int arrivalTime;
 	private int spentTime;
-	private int quantum;
 	private String status;
 	
-	public Process(int pid, int arrivalTime, int spentTime, int quantum) {
+	public Process(int pid, int arrivalTime, int spentTime) {
 		this.pid = pid;
 		this.arrivalTime = arrivalTime;
 		this.spentTime = spentTime;
 		this.status = "ready";
-		this.quantum = quantum;
 	}
 	
 	public String getStatus() {
@@ -29,10 +27,6 @@ public class Process {
 	
 	public int getSpentTime() {
 		return this.spentTime;
-	}
-	
-	public int getQuantum() {
-		return this.quantum;
 	}
 	
 	public void setSpentTime(int spentTime) {
