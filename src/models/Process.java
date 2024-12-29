@@ -1,6 +1,6 @@
 package models;
 
-public class Process {
+public class Process implements Cloneable{
 	private int pid;
 	private int arrivalTime;
 	private int spentTime;
@@ -10,7 +10,7 @@ public class Process {
 		this.pid = pid;
 		this.arrivalTime = arrivalTime;
 		this.spentTime = spentTime;
-		this.status = "ready";
+		this.status = "Pronto";
 	}
 	
 	public String getStatus() {
@@ -39,5 +39,14 @@ public class Process {
 	
 	public String toString() {
 		return "PID: " + this.pid + " | Status: "+ this.status +" | Arrival Time: " + this.arrivalTime + " | Spent Time: " + this.spentTime + "\n";
+	}
+	
+	@Override
+	public Process clone() {
+		try {
+			return (Process) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
 }

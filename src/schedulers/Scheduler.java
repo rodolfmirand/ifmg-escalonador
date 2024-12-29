@@ -7,6 +7,7 @@ import models.Process;
 import views.ProcessesTableModel;
 
 public abstract class Scheduler implements Runnable{
+	public static int processCounter = 0;
 	public static int executionTimeSpent = 0;
 	public static final List<Process> PROCESSES = new ArrayList<>();
 	protected ProcessesTableModel processTableModel;
@@ -22,7 +23,7 @@ public abstract class Scheduler implements Runnable{
 	}
 	
 	public void sortByExecutionTime() {
-		PROCESSES.sort(Comparator.comparingInt(Process::getSpentTime).thenComparingInt(Process::getSpentTime));
+		PROCESSES.sort(Comparator.comparingInt(Process::getArrivalTime).thenComparingInt(Process::getSpentTime));
 	}
 	
 	protected synchronized boolean processesIsEmpty() {

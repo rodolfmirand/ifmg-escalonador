@@ -1,7 +1,7 @@
 package schedulers;
 
 import models.Process;
-import models.Quantum;
+import models.Processor;
 import views.ProcessesTableModel;
 
 public class RoundRoubin extends Scheduler{
@@ -16,15 +16,22 @@ public class RoundRoubin extends Scheduler{
 		while(!this.processesIsEmpty()) {
 			Process process = this.getProcess();
 
-			process.setStatus("Running");
-			int executionTime = Math.min(process.getSpentTime(), Quantum.getValue());
+			process.setStatus("Executando");
+			this.processTableModel.addProcess(process);
+			this.processTableModel.fireTableDataChanged();
+			
+			int executionTime = Math.min(process.getSpentTime(), Processor.getQuantum());
 			
 			process.setSpentTime(process.getSpentTime() - executionTime);
 			Scheduler.executionTimeSpent += executionTime;
 			
 			if(process.getSpentTime() > 0) {
 				this.addProcess(process);
-				process.setStatus("Ready");
+				process.setStatus("Pronto");
+				this.processTableModel.addProcess(process);
+			}else {
+				process.setStatus("Encerrado");
+				this.processTableModel.addProcess(process);
 			}
 
 			this.processTableModel.fireTableDataChanged();

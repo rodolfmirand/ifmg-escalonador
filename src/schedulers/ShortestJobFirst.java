@@ -13,12 +13,15 @@ public class ShortestJobFirst extends Scheduler{
 
 		while(!this.processesIsEmpty()) {
 			Process process = this.getProcess();
-			process.setStatus("Running");
+			process.setStatus("Executando");
+			
+			this.processTableModel.addProcess(process);
 			Scheduler.executionTimeSpent += process.getSpentTime();
 			
-			System.out.println(process.getPid());
-			
 			process.setSpentTime(0);
+			process.setStatus("Encerrado");
+			this.processTableModel.addProcess(process);
+			
 			this.processTableModel.fireTableDataChanged();
 		}
 	}

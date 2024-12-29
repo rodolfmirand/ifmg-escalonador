@@ -10,9 +10,9 @@ public class Main {
 	public static int FRAME_WIDTH = 800;
 	public static int FRAME_HEIGHT = 800;
 	public static void main (String[] args) {
-		UIManager.put("OptionPane.background", Color.WHITE); // COR DE FUNDO DO PAINEL
-        UIManager.put("Panel.background", Color.WHITE); // COR DE FUNDO DO CONTEÚDO
-        UIManager.put("OptionPane.messageForeground", Color.BLACK); // COR DO TEXTO
+		UIManager.put("OptionPane.background", Color.WHITE); 
+        UIManager.put("Panel.background", Color.WHITE);
+        UIManager.put("OptionPane.messageForeground", Color.BLACK);
 		
 		JFrame frame = new JFrame("Algoritmos de escalonamento");
 		frame.setResizable(false);
