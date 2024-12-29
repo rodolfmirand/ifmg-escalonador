@@ -8,6 +8,11 @@ public class ProcessesTableModel extends AbstractTableModel{
 	private final List<Process> processes;
     private final String[] columnNames = { "PID", "Status", "Arrival Time", "Execution Time" };
 	
+    public void clearProcesses() {
+    	this.processes.clear();
+    	this.fireTableDataChanged();
+    }
+    
     public ProcessesTableModel(List<Process> processes) {
     	this.processes = processes;
     }
