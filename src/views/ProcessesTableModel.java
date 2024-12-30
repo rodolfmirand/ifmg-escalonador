@@ -22,7 +22,7 @@ public class ProcessesTableModel extends AbstractTableModel{
     	this.processes = processes;
     }
     
-    public void addProcess(Process process) {
+    public synchronized void addProcess(Process process) {
     	Process cloneProcess = process.clone();
     	this.processes.add(cloneProcess);
     }
