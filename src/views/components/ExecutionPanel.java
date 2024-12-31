@@ -11,7 +11,6 @@ import javax.swing.JTable;
 
 import controller.SchedulerController;
 import schedulers.Scheduler;
-import views.ProcessesTableModel;
 
 public class ExecutionPanel extends BasePanel {
     public ExecutionPanel(ProcessesTableModel processesTableModel, SchedulerController schedulerController) {
@@ -31,7 +30,7 @@ public class ExecutionPanel extends BasePanel {
                     "Resultados", JOptionPane.INFORMATION_MESSAGE
                 );
             } catch (IllegalStateException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
 

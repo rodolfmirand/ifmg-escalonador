@@ -32,6 +32,7 @@ import views.components.Button;
 import views.components.ExecutionPanel;
 import views.components.HeaderPanel;
 import views.components.ProcessPanel;
+import views.components.ProcessesTableModel;
 import views.components.ProcessorPanel;
 import views.components.TextField;
 

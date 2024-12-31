@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import models.Process;
-
+import views.components.ProcessesTableModel;
 import controller.SchedulerController;
 
 public class Main {
@@ -31,7 +31,7 @@ public class Main {
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        
+        frame.setLocationRelativeTo(null);
         
         return frame;
 	}

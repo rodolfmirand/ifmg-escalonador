@@ -3,7 +3,7 @@ package schedulers;
 import controller.SchedulerController;
 import models.Process;
 import models.Processor;
-import views.ProcessesTableModel;
+import views.components.ProcessesTableModel;
 
 public class RoundRoubin extends Scheduler{
 	public RoundRoubin(SchedulerController schedulerController) {

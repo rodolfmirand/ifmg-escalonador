@@ -6,7 +6,7 @@ import java.util.List;
 
 import controller.SchedulerController;
 import models.Process;
-import views.ProcessesTableModel;
+import views.components.ProcessesTableModel;
 
 public abstract class Scheduler implements Runnable{
 	/* Variáveis de controle do Scheduler */

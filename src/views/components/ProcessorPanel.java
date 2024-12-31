@@ -51,7 +51,7 @@ public class ProcessorPanel extends BasePanel {
 			int quantumValue = !fieldQuantum.getText().isEmpty() ? Integer.parseInt(fieldQuantum.getText()) : 1;
 			Processor.setQuantum(quantumValue);
 			
-			JOptionPane.showMessageDialog(this, "Número de processadores: " + Processor.getProcessorsNumbers() + "\nAlgoritmo: "+ selectedAlgorithm, "Processador", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Número de processadores: " + Processor.getProcessorsNumbers() + "\nAlgoritmo: "+ selectedAlgorithm, "Processador", JOptionPane.INFORMATION_MESSAGE);
 		});
         
     }

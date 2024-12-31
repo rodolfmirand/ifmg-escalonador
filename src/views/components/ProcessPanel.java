@@ -26,7 +26,7 @@ public class ProcessPanel extends BasePanel {
             int executionTime = parseInteger(fieldExecutionTime.getText());
             schedulerController.addProcess(arrivalTime, executionTime);
             
-            JOptionPane.showMessageDialog(this, "Processo adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Processo adicionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         });
     }
 

@@ -2,7 +2,7 @@ package schedulers;
 
 import controller.SchedulerController;
 import models.Process;
-import views.ProcessesTableModel;
+import views.components.ProcessesTableModel;
 
 public class ShortestJobFirst extends Scheduler{
 	public ShortestJobFirst(SchedulerController schedulerController) {

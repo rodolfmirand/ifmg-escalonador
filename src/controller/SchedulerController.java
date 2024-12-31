@@ -1,7 +1,5 @@
 package controller;
 
-import views.ProcessesTableModel;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,6 +7,7 @@ import factories.SchedulerFactory;
 import models.Process;
 import models.Processor;
 import schedulers.Scheduler;
+import views.components.ProcessesTableModel;
 
 public class SchedulerController {
 	private final ProcessesTableModel processesTableModel;
