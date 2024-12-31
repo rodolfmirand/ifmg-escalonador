@@ -1,12 +1,13 @@
 package schedulers;
 
+import controller.SchedulerController;
 import models.Process;
 import models.Processor;
 import views.ProcessesTableModel;
 
 public class RoundRoubin extends Scheduler{
-	public RoundRoubin(ProcessesTableModel processTableModel) {
-		super(processTableModel);
+	public RoundRoubin(SchedulerController schedulerController) {
+		super(schedulerController);
 	}
 	
 	@Override
@@ -17,24 +18,24 @@ public class RoundRoubin extends Scheduler{
 			Process process = this.getProcess();
 
 			process.setStatus("Executando");
-			this.processTableModel.addProcess(process);
-			this.processTableModel.fireTableDataChanged();
+			this.schedulerController.addProcessInView(process);
 			
 			int executionTime = Math.min(process.getSpentTime(), Processor.getQuantum());
 			
 			process.setSpentTime(process.getSpentTime() - executionTime);
-			Scheduler.executionTimeSpent += executionTime;
+			Scheduler.setExecutionTimeSpent(executionTime);
 			
 			if(process.getSpentTime() > 0) {
 				this.addProcess(process);
-				process.setStatus("Pronto");
-				this.processTableModel.addProcess(process);
+				this.schedulerController.updateProcessInView(process, "Pronto");
 			}else {
-				process.setStatus("Encerrado");
-				this.processTableModel.addProcess(process);
+				this.schedulerController.updateProcessInView(process, "Encerrado");
 			}
-
-			this.processTableModel.fireTableDataChanged();
 		}
+	}
+
+	@Override
+	public double calculateWaitingTime() {
+		return 0;
 	}
 }

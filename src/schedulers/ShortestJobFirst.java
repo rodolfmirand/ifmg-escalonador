@@ -1,11 +1,12 @@
 package schedulers;
 
+import controller.SchedulerController;
 import models.Process;
 import views.ProcessesTableModel;
 
 public class ShortestJobFirst extends Scheduler{
-	public ShortestJobFirst(ProcessesTableModel processTableModel) {
-		super(processTableModel);
+	public ShortestJobFirst(SchedulerController schedulerController) {
+		super(schedulerController);
 	}
 	
 	public void run() {
@@ -15,14 +16,22 @@ public class ShortestJobFirst extends Scheduler{
 			Process process = this.getProcess();
 			process.setStatus("Executando");
 			
-			this.processTableModel.addProcess(process);
-			Scheduler.executionTimeSpent += process.getSpentTime();
+			this.schedulerController.addProcessInView(process);
+			Scheduler.setExecutionTimeSpent(process.getSpentTime());
 			
 			process.setSpentTime(0);
 			process.setStatus("Encerrado");
-			this.processTableModel.addProcess(process);
-			
-			this.processTableModel.fireTableDataChanged();
+			this.schedulerController.addProcessInView(process);
 		}
+	}
+
+	@Override
+	public double calculateWaitingTime() {
+		double totalProcessWatintTime = 0;
+		for(Process process : Scheduler.PROCESSES) {
+			totalProcessWatintTime += process.getSpentTime() - process.getArrivalTime();
+		}
+		
+		return totalProcessWatintTime/Scheduler.processCounter;
 	}
 }
