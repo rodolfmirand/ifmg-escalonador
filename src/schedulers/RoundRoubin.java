@@ -12,10 +12,10 @@ public class RoundRoubin extends Scheduler{
 	
 	@Override
 	public void run() {
+		int currentTime = 0;
 		while(!this.processesIsEmpty()) {
 			Process process = this.getProcess();
-
-			process.setStatus("Executando");
+			
 			this.schedulerController.addProcessInView(process);
 			
 			int executionTime = Math.min(process.getSpentTime(), Processor.getQuantum());
@@ -23,17 +23,12 @@ public class RoundRoubin extends Scheduler{
 			process.setSpentTime(process.getSpentTime() - executionTime);
 			Scheduler.setExecutionTimeSpent(executionTime);
 			
-			if(process.getSpentTime() > 0) {
-				this.addProcess(process);
-				this.schedulerController.updateProcessInView(process, "Pronto");
-			}else {
-				this.schedulerController.updateProcessInView(process, "Encerrado");
-			}
+			currentTime += executionTime;
+			process.setWaitingTime(currentTime - executionTime - process.getArrivalTime());
+			
+			String status = process.getSpentTime() > 0 ? "Pronto" : "Encerrado";
+			this.addProcess(process, status);
+			this.schedulerController.updateProcessInView(process, status);
 		}
-	}
-
-	@Override
-	public double calculateWaitingTime() {
-		return 0;
 	}
 }

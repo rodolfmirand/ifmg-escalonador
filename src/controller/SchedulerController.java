@@ -46,10 +46,18 @@ public class SchedulerController {
 	        }
 	        
 	        processesTableModel.fireTableDataChanged();
-	        schedulingResults.put("totalTime", Scheduler.executionTimeSpent);
-	        schedulingResults.put("averageTime", Scheduler.calculateAverageTimeSpent());
-	        schedulingResults.put("contextChangeCounter", Scheduler.contextChangeCounter);
 	        
+	        /* Respostas advindas da execução dos processos */
+	        schedulingResults.put("totalTime", Scheduler.executionTimeSpent);
+	        schedulingResults.put("averageExecutionTime", Scheduler.calculateAverageTimeSpent());
+	        schedulingResults.put("contextChangeCounter", Scheduler.contextChangeCounter);
+	        schedulingResults.put("averageWaitingTime", Scheduler.calculateAverageWaitingTime());
+	        
+	        // Resetando o tempo total de execução
+            Scheduler.executionTimeSpent = 0;
+            // Resetando os ids de processos
+            Scheduler.processCounter = 0;
+            
 	        return schedulingResults;
 	    } else {
 	        processesTableModel.clearProcesses();

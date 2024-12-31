@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 public class ProcessesTableModel extends AbstractTableModel{
 	private final List<Process> processes;
-    private final String[] columnNames = { "PID", "Status", "Arrival Time", "Execution Time" };
+    private final String[] columnNames = { "PID", "Status", "Tempo de chegada", "Tempo de execução"};
 	
     public void clearProcesses() {
     	this.processes.clear();

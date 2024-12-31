@@ -7,7 +7,7 @@ import schedulers.ShortestJobFirst;
 
 public class SchedulerFactory {
     public static Scheduler createScheduler(String scheduler, SchedulerController schedulerController) {
-        if (scheduler.equals("Round Roubin")) {
+        if (scheduler.equals("Round Robin")) {
             Scheduler.sortByArrivalTime();
             return new RoundRoubin(schedulerController);
         }

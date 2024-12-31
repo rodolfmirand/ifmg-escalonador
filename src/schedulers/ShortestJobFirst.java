@@ -10,26 +10,25 @@ public class ShortestJobFirst extends Scheduler{
 	}
 	
 	public void run() {
+		int currentTime = 0;
 		while(!this.processesIsEmpty()) {
 			Process process = this.getProcess();
-			process.setStatus("Executando");
 			
 			this.schedulerController.addProcessInView(process);
 			Scheduler.setExecutionTimeSpent(process.getSpentTime());
 			
-			process.setSpentTime(0);
-			process.setStatus("Encerrado");
+			currentTime += process.getSpentTime();
+			
+			process.setWaitingTime(currentTime - process.getArrivalTime());
+			
+			this.finishProcess(process);
 			this.schedulerController.addProcessInView(process);
 		}
 	}
-
-	@Override
-	public double calculateWaitingTime() {
-		double totalProcessWatintTime = 0;
-		for(Process process : Scheduler.PROCESSES) {
-			totalProcessWatintTime += process.getSpentTime() - process.getArrivalTime();
-		}
-		
-		return totalProcessWatintTime/Scheduler.processCounter;
+	
+	private void finishProcess(Process process) {
+		process.setSpentTime(0);
+		process.setStatus("Encerrado");
+		this.addProcess(process, "Encerrado");
 	}
 }

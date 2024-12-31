@@ -9,14 +9,24 @@ import models.Process;
 import views.ProcessesTableModel;
 
 public abstract class Scheduler implements Runnable{
+	/* Variáveis de controle do Scheduler */
 	public static int processCounter = 0;
 	public static double executionTimeSpent = 0;
-	public static final List<Process> PROCESSES = new ArrayList<>();
-	protected SchedulerController schedulerController;
 	public static int contextChangeCounter = 0;
 	
+	/* Fila com os processos */
+	public static final List<Process> PROCESSES = new ArrayList<>();
+	
+	/* Comunicação com a view */
+	protected SchedulerController schedulerController;
+	
 	public abstract void run();
-	public abstract double calculateWaitingTime();
+	
+	public static double calculateAverageWaitingTime() {
+		int waitingTimeSum =  PROCESSES.stream().mapToInt(Process::getWaitingTime).sum();
+		
+		return PROCESSES.size() > 0 ? waitingTimeSum/PROCESSES.size() : 0;
+	};
 	
 	public static double calculateAverageTimeSpent() {
 		return executionTimeSpent/processCounter;
@@ -40,15 +50,19 @@ public abstract class Scheduler implements Runnable{
 	}
 	
 	protected synchronized boolean processesIsEmpty() {
-		return PROCESSES.isEmpty();
+		return PROCESSES.stream().allMatch(process -> "Encerrado".equals(process.getStatus()));
 	}
 	
 	protected synchronized Process getProcess() {
 		contextChangeCounter++;
-		return PROCESSES.removeFirst();
+		Process process = PROCESSES.removeFirst();
+		process.setStatus("Executando");
+		
+		return process;
 	}
 	
-	protected synchronized void addProcess(Process process) {
+	protected synchronized void addProcess(Process process, String status) {
+		process.setStatus(status);
 		PROCESSES.add(process);
 	}
 }

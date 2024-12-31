@@ -8,6 +8,8 @@ import javax.swing.JTextField;
 import models.Processor;
 
 public class ProcessorPanel extends BasePanel {
+	protected static String selectedAlgorithm = "Round Robin";
+	
     public ProcessorPanel() {
     	addLabelTitle("Processador");
         addLabel("Número de processadores:", defaultFont);
@@ -45,10 +47,11 @@ public class ProcessorPanel extends BasePanel {
         
         JButton buttonProcessor = this.addButton("Salvar");
 		buttonProcessor.addActionListener(e -> {
-			int quantumValue = !fieldQuantum.getText().isEmpty() ? Integer.parseInt(fieldQuantum.getText()) : 0;
+			selectedAlgorithm = (String) comboBoxAlgorithm.getSelectedItem();
+			int quantumValue = !fieldQuantum.getText().isEmpty() ? Integer.parseInt(fieldQuantum.getText()) : 1;
 			Processor.setQuantum(quantumValue);
 			
-			JOptionPane.showMessageDialog(this, "Número de processadores: " + Processor.getProcessorsNumbers() + "\nAlgoritmo: "+ "Round Roubin", "Processador", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Número de processadores: " + Processor.getProcessorsNumbers() + "\nAlgoritmo: "+ selectedAlgorithm, "Processador", JOptionPane.INFORMATION_MESSAGE);
 		});
         
     }

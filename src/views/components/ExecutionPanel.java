@@ -22,14 +22,14 @@ public class ExecutionPanel extends BasePanel {
         JButton buttonStart = addButton("Iniciar");
         buttonStart.addActionListener(e -> {
             try {
-                HashMap<String, Number> results = schedulerController.startProcesses("Round Roubin");
+                HashMap<String, Number> results = schedulerController.startProcesses(ProcessorPanel.selectedAlgorithm);
                 JOptionPane.showMessageDialog(this,
-                    "Tempo total: " + results.get("totalTime") +
-                    "\nTempo médio: " + results.get("averageTime") +
-                    "\nNúmero de trocas de contexto: " + results.get("contextChangeCounter"),
+                    "Tempo de execução total: " + results.get("totalTime") +
+                    "\nTempo médio de execução: " + results.get("averageExecutionTime") +
+                    "\nTempo médio de espera: " + results.get("averageWaitingTime") +
+                    "\nTrocas de contexto: " + results.get("contextChangeCounter"),
                     "Resultados", JOptionPane.INFORMATION_MESSAGE
                 );
-                Scheduler.executionTimeSpent = 0;
             } catch (IllegalStateException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
