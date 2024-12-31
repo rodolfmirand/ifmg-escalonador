@@ -12,8 +12,6 @@ public class RoundRoubin extends Scheduler{
 	
 	@Override
 	public void run() {
-		this.sortByArrivalTime();
-
 		while(!this.processesIsEmpty()) {
 			Process process = this.getProcess();
 

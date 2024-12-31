@@ -10,8 +10,6 @@ public class ShortestJobFirst extends Scheduler{
 	}
 	
 	public void run() {
-		this.sortByExecutionTime();
-
 		while(!this.processesIsEmpty()) {
 			Process process = this.getProcess();
 			process.setStatus("Executando");

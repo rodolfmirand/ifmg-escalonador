@@ -13,6 +13,7 @@ public abstract class Scheduler implements Runnable{
 	public static double executionTimeSpent = 0;
 	public static final List<Process> PROCESSES = new ArrayList<>();
 	protected SchedulerController schedulerController;
+	public static int contextChangeCounter = 0;
 	
 	public abstract void run();
 	public abstract double calculateWaitingTime();
@@ -25,11 +26,11 @@ public abstract class Scheduler implements Runnable{
 		this.schedulerController = schedulerController;
 	}
 	
-	public void sortByArrivalTime() {
+	public static void sortByArrivalTime() {
 		PROCESSES.sort(Comparator.comparingInt(Process::getArrivalTime));
 	}
 	
-	public void sortByExecutionTime() {
+	public static void sortByExecutionTime() {
 		PROCESSES.sort(Comparator.comparingInt(Process::getArrivalTime).thenComparingInt(Process::getSpentTime));
 	}
 	
@@ -43,6 +44,7 @@ public abstract class Scheduler implements Runnable{
 	}
 	
 	protected synchronized Process getProcess() {
+		contextChangeCounter++;
 		return PROCESSES.removeFirst();
 	}
 	

@@ -48,6 +48,7 @@ public class SchedulerController {
 	        processesTableModel.fireTableDataChanged();
 	        schedulingResults.put("totalTime", Scheduler.executionTimeSpent);
 	        schedulingResults.put("averageTime", Scheduler.calculateAverageTimeSpent());
+	        schedulingResults.put("contextChangeCounter", Scheduler.contextChangeCounter);
 	        
 	        return schedulingResults;
 	    } else {

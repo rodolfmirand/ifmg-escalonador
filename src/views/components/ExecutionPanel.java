@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import controller.SchedulerController;
+import schedulers.Scheduler;
 import views.ProcessesTableModel;
 
 public class ExecutionPanel extends BasePanel {
@@ -24,9 +25,11 @@ public class ExecutionPanel extends BasePanel {
                 HashMap<String, Number> results = schedulerController.startProcesses("Round Roubin");
                 JOptionPane.showMessageDialog(this,
                     "Tempo total: " + results.get("totalTime") +
-                    "\nTempo médio: " + results.get("averageTime"),
+                    "\nTempo médio: " + results.get("averageTime") +
+                    "\nNúmero de trocas de contexto: " + results.get("contextChangeCounter"),
                     "Resultados", JOptionPane.INFORMATION_MESSAGE
                 );
+                Scheduler.executionTimeSpent = 0;
             } catch (IllegalStateException ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
