@@ -12,7 +12,7 @@ public abstract class Scheduler implements Runnable{
 	/* Variáveis de controle do Scheduler */
 	public static int processCounter = 0;
 	public static double executionTimeSpent = 0;
-	public static int contextChangeCounter = 0;
+	public static double contextChangeCounter = 0;
 	
 	/* Fila com os processos */
 	public static final List<Process> PROCESSES = new ArrayList<>();
