@@ -5,6 +5,7 @@ public class Process implements Cloneable{
 	private int arrivalTime;
 	private int spentTime;
 	private int waitingTime;
+	private int lastExecutionTime;
 	private String status;
 	
 	public Process(int pid, int arrivalTime, int spentTime) {
@@ -13,6 +14,7 @@ public class Process implements Cloneable{
 		this.spentTime = spentTime;
 		this.status = "Pronto";
 		this.waitingTime = 0;
+		this.lastExecutionTime = arrivalTime;
 	}
 	
 	public String getStatus() {
@@ -47,6 +49,15 @@ public class Process implements Cloneable{
 		this.waitingTime += waitingTime;
 	}
 	
+	
+	public int getLastExecutionTime() {
+		return this.lastExecutionTime;
+	}
+
+	public void setLastExecutionTime(int lastExecutionTime) {
+		this.lastExecutionTime = lastExecutionTime;
+	}
+
 	public String toString() {
 		return "PID: " + this.pid + " | Status: "+ this.status +" | Arrival Time: " + this.arrivalTime + " | Spent Time: " + this.spentTime + "\n";
 	}

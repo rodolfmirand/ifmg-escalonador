@@ -23,11 +23,12 @@ public class RoundRoubin extends Scheduler{
 			process.setSpentTime(process.getSpentTime() - executionTime);
 			Scheduler.setExecutionTimeSpent(executionTime);
 			
-			currentTime += executionTime;
-			process.setWaitingTime(currentTime - executionTime - process.getArrivalTime());
+			
+			process.setWaitingTime(currentTime - process.getLastExecutionTime());currentTime += executionTime;
+			process.setLastExecutionTime(currentTime);
 			
 			String status = process.getSpentTime() > 0 ? "Pronto" : "Encerrado";
-			this.addProcess(process, status);
+			this.updateProcess(process, status);
 			this.schedulerController.updateProcessInView(process, status);
 		}
 	}

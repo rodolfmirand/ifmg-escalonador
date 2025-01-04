@@ -29,7 +29,9 @@ public class SchedulerController {
 	        processesTableModel.clearProcesses();
 	        ArrayList<Thread> threads = new ArrayList<>();
 	        
-	        for (int core = 1; core <= Processor.getProcessorsNumbers(); core++) {
+	        int cores = Math.min(Scheduler.PROCESSES.size(), Processor.getProcessorsNumbers());
+	        
+	        for (int core = 1; core <= cores; core++) {
 	            Thread threadScheduler = new Thread(SchedulerFactory.createScheduler(scheduler, this));
 	            threads.add(threadScheduler);
 	            threadScheduler.start();
@@ -52,10 +54,8 @@ public class SchedulerController {
 	        schedulingResults.put("contextChangeCounter", Scheduler.contextChangeCounter);
 	        schedulingResults.put("averageWaitingTime", Scheduler.calculateAverageWaitingTime());
 	        
-	        // Resetando o tempo total de execução
-            Scheduler.executionTimeSpent = 0;
-            // Resetando os ids de processos
-            Scheduler.processCounter = 0;
+	        // Resetando os atributos
+            Scheduler.resetAttributes();
             
 	        return schedulingResults;
 	    } else {

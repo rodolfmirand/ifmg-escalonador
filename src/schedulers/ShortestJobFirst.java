@@ -13,13 +13,13 @@ public class ShortestJobFirst extends Scheduler{
 		int currentTime = 0;
 		while(!this.processesIsEmpty()) {
 			Process process = this.getProcess();
-			
+
 			this.schedulerController.addProcessInView(process);
 			Scheduler.setExecutionTimeSpent(process.getSpentTime());
 			
+			process.setWaitingTime(currentTime);
 			currentTime += process.getSpentTime();
-			
-			process.setWaitingTime(currentTime - process.getArrivalTime());
+			process.setLastExecutionTime(currentTime);
 			
 			this.finishProcess(process);
 			this.schedulerController.addProcessInView(process);
@@ -29,6 +29,6 @@ public class ShortestJobFirst extends Scheduler{
 	private void finishProcess(Process process) {
 		process.setSpentTime(0);
 		process.setStatus("Encerrado");
-		this.addProcess(process, "Encerrado");
+		this.updateProcess(process, "Encerrado");
 	}
 }

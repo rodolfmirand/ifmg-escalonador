@@ -20,20 +20,35 @@ public abstract class Scheduler implements Runnable{
 	/* Comunicação com a view */
 	protected SchedulerController schedulerController;
 	
-	public abstract void run();
-	
-	public static double calculateAverageWaitingTime() {
-		int waitingTimeSum =  PROCESSES.stream().mapToInt(Process::getWaitingTime).sum();
-		
-		return PROCESSES.size() > 0 ? waitingTimeSum/PROCESSES.size() : 0;
-	};
-	
-	public static double calculateAverageTimeSpent() {
-		return executionTimeSpent/processCounter;
-	}
 	
 	public Scheduler(SchedulerController schedulerController) {
 		this.schedulerController = schedulerController;
+	}
+	
+	public abstract void run();
+	
+	public static double calculateAverageWaitingTime() {
+		double waitingTimeSum = PROCESSES.stream()
+				.mapToInt(process -> process.getWaitingTime())
+				.average()
+				.orElse(0.0);
+		
+		return Math.round(waitingTimeSum * 100.0) / 100.0;
+	};
+	
+	public static double calculateAverageTimeSpent() {
+		double turnArountTimes = PROCESSES.stream()
+		        .mapToInt(process -> process.getLastExecutionTime() - process.getArrivalTime()) 
+		        .average() 
+		        .orElse(0.0);
+	    
+	    return Math.round(turnArountTimes * 100.0) / 100.0;
+	}
+	
+	public static void resetAttributes() {
+		processCounter = 0;
+		executionTimeSpent = 0;
+		contextChangeCounter = 0;
 	}
 	
 	public static void sortByArrivalTime() {
@@ -54,15 +69,26 @@ public abstract class Scheduler implements Runnable{
 	}
 	
 	protected synchronized Process getProcess() {
-		contextChangeCounter++;
-		Process process = PROCESSES.removeFirst();
+		Process process = PROCESSES.stream()
+		        .filter(p -> !"Encerrado".equals(p.getStatus()))
+		        .findFirst()
+		        .orElse(null); 
 		process.setStatus("Executando");
+		
+		contextChangeCounter++;
 		
 		return process;
 	}
 	
-	protected synchronized void addProcess(Process process, String status) {
+	protected synchronized void updateProcess(Process process, String status) {
 		process.setStatus(status);
-		PROCESSES.add(process);
+		PROCESSES.stream()
+	        .filter(p -> p.getPid() == process.getPid()) 
+	        .findFirst() 
+	        .ifPresent(existingProcess -> {
+	            // Atualiza o processo encontrado
+	            PROCESSES.remove(existingProcess); 
+	            PROCESSES.add(process); 
+        });
 	}
 }
