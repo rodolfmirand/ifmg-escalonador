@@ -27,7 +27,7 @@ public abstract class Scheduler implements Runnable{
 	
 	public abstract void run();
 	
-	public static double calculateAverageWaitingTime() {
+	public static double calculateAverageWaitingTime() {		
 		double waitingTimeSum = PROCESSES.stream()
 				.mapToInt(process -> process.getWaitingTime())
 				.average()
@@ -49,6 +49,7 @@ public abstract class Scheduler implements Runnable{
 		processCounter = 0;
 		executionTimeSpent = 0;
 		contextChangeCounter = 0;
+		PROCESSES.clear();
 	}
 	
 	public static void sortByArrivalTime() {

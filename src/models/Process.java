@@ -14,7 +14,7 @@ public class Process implements Cloneable{
 		this.spentTime = spentTime;
 		this.status = "Pronto";
 		this.waitingTime = 0;
-		this.lastExecutionTime = arrivalTime;
+		this.lastExecutionTime = 0;
 	}
 	
 	public String getStatus() {
